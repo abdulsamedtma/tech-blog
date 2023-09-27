@@ -1,27 +1,29 @@
+// Import required modules and data
+const { User, Post } = require('../models');
+const sequelize = require('../config/connection'); // Import the Sequelize connection
+const userData = require('./userData.json');
+const postData = require('./postData.json');
 
-// Import seed functions for users, posts, and comments
-const seedUsers = require('./user');
-const seedPosts = require('./post');
-const seedComments = require('./comment');
 
-// Import the Sequelize connection
-const sequelize = require('../config/connection');
-
-// Define a function to seed the database
-const seedAll = async () => {
-    // Synchronize the Sequelize models with the database and force a refresh
-    await sequelize.sync({ force: true });
-
-    // Seed users, posts, and comments data
-    await seedUsers();
-    await seedPosts();
-    await seedComments();
-
-    // Exit the process after seeding is complete
-    process.exit(0);
+// Function to seed users
+const seedUsers = async () => {
+  await User.bulkCreate(userData);
 };
 
-// Call the seedAll function to start the seeding process
-seedAll();
+// Function to seed posts
+async function seedPosts() {
+  await Post.bulkCreate(postData);
+}
 
+// Function to seed data
+const seedData = async () => {
+  await seedUsers();
+  await seedPosts();
+};
 
+// Synchronize the Sequelize models with the database and then seed the data
+sequelize.sync({ force: true }).then(() => {
+  seedData().then(() => {
+    process.exit(0);
+  });
+});

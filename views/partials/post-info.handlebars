@@ -1,9 +1,22 @@
-<div class="container row">
-    <div class="card-header dashboard-post">
-       <h4 class="card-title post-title"><a class="link" href="/post/{{id}}">{{title}}</a></h4>
-        <div class="card-body post-body">
-        <p class="card-body post-content">{{content}}</p>
-        <p class="card-text post-author">Posted by <span class="post-username">{{user.username}}</span> on {{format_date created_at}}</p>
-        </div>
-    </div>
+<div class="card">
+  <!-- Start of the card header with flexbox and justified space between -->
+  <div class="card-header flex-row justify-space-between">
+    <!-- Heading for the post title -->
+    <h2>
+      <!-- Link to the post page with the post's ID -->
+      <a href="/post/{{id}}">
+        <!-- Display the post title with a column width of 8 -->
+        <div class="col-8">{{postTitle}}</div>
+      </a>
+    </h2>
+    <!-- Display the post author's username and creation date -->
+    <div class="col-3">posted by
+      {{user.username}}
+      on
+      {{format_date dateCreated}}</div>
+  </div>
+  <!-- Close the card header section -->
+
+  <!-- Display the post content in the card body -->
+  <p class="card-body">{{postContent}}</p>
 </div>

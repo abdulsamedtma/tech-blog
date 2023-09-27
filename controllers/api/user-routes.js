@@ -1,163 +1,71 @@
-// Import necessary modules and models
-const router = require('express').Router();
-const { User, Post, Comment } = require('../../models');
+const router = require("express").Router();
+const { User } = require("../../models");
 
-// GET all users (excluding password)
-router.get('/', (req, res) => {
-    User.findAll({
-        attributes: { exclude: ['password'] }
-    })
-    .then(dbUserData => res.json(dbUserData))
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
+// SIGN UP
+
+router.post("/signup", async (req, res) => { // amended to /signup
+  try {
+    const newUser = await User.create({
+      username: req.body.username,
+      password: req.body.password,
     });
+
+    req.session.save(() => {
+      req.session.userId = newUser.id;
+      req.session.username = newUser.username;
+      req.session.loggedIn = true;
+
+      res.json(newUser);
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
-// GET a specific user by ID and their associated posts and comments
-router.get('/:id', (req, res) => {
-    User.findOne({
-        attributes: { exclude: ['password'] },
-        where: {
-            id: req.params.id
-        },
-        include: [
-            {
-                model: Post,
-                attributes: ['id', 'title', 'content', 'created_at']
-            },
-            {
-                model: Comment,
-                attributes: ['id', 'comment_text', 'created_at'],
-                include: {
-                    model: Post,
-                    attributes: ['title']
-                }
-            },
-            {
-                model: Post,
-                attributes: ['title']
-            }
-        ]
-    })
-    .then(dbUserData => {
-        if (!dbUserData) {
-            res.status(404).json({ message: 'No user found with this id' });
-            return;
-        }
-        res.json(dbUserData);
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    });
-});
+// LOGIN
 
-// POST a new user
-router.post('/', (req, res) => {
-    User.create({
+router.post("/login", async (req, res) => {
+  try {
+    const user = await User.findOne({
+      where: {
         username: req.body.username,
-        email: req.body.email,
-        password: req.body.password
-    })
-    .then(dbUserData => {
-        // Create a session for the new user upon successful registration
-        req.session.save(() => {
-            req.session.user_id = dbUserData.id;
-            req.session.username = dbUserData.username;
-            req.session.loggedIn = true;
-            res.json(dbUserData);
-        });
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
+      },
     });
-});
 
-// POST a login request
-router.post('/login', (req, res) => {
-    User.findOne({
-        where: {
-            username: req.body.username
-        }
-    })
-    .then(dbUserData => {
-        if (!dbUserData) {
-            res.status(400).json({ message: 'No user with that username!' });
-            return;
-        }
-        const validPassword = dbUserData.checkPassword(req.body.password);
-
-        if (!validPassword) {
-            res.status(400).json({ message: 'Incorrect password!' });
-            return;
-        }
-        // Create a session for the logged-in user
-        req.session.save(() => {
-            req.session.user_id = dbUserData.id;
-            req.session.username = dbUserData.username;
-            req.session.loggedIn = true;
-            res.json({ user: dbUserData, message: 'You are now logged in!' });
-        });
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    });
-});
-
-// POST a logout request
-router.post('/logout', (req, res) => {
-    if (req.session.loggedIn) {
-        req.session.destroy(() => {
-            res.status(204).end();
-        });
-    } else {
-        res.status(404).end();
+    if (!user) {
+      res.status(400).json({ message: "No user account found!" });
+      return;
     }
-});
 
-// PUT (update) a user by ID
-router.put('/:id', (req, res) => {
-    User.update(req.body, {
-        individualHooks: true,
-        where: {
-            id: req.params.id
-        }
-    })
-    .then(dbUserData => {
-        if (!dbUserData) {
-            res.status(404).json({ message: 'No user found with this id' });
-            return;
-        }
-        res.json(dbUserData);
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
+    const validPassword = user.checkPassword(req.body.password);
+
+    if (!validPassword) {
+      res.status(400).json({ message: "No user account found!" });
+      return;
+    }
+
+    req.session.save(() => {
+      req.session.userId = user.id;
+      req.session.username = user.username;
+      req.session.loggedIn = true;
+
+      res.json({ user, message: "You are now logged in!" });
     });
+  } catch (err) {
+    res.status(400).json({ message: "No user account found!" });
+  }
 });
 
-// DELETE a user by ID
-router.delete('/:id', (req, res) => {
-    User.destroy({
-        where: {
-            id: req.params.id
-        }
-    })
-    .then(dbUserData => {
-        if (!dbUserData) {
-            res.status(404).json({ message: 'No user found with this id' });
-            return;
-        }
-        res.json(dbUserData);
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
+// LOGOUT
+
+router.post("/logout", (req, res) => {
+  if (req.session.loggedIn) {
+    req.session.destroy(() => {
+      res.status(204).end();
     });
+  } else {
+    res.status(404).end();
+  }
 });
 
-// Export the router for use in other parts of the application
 module.exports = router;

@@ -1,0 +1,28 @@
+[
+    {
+      "username": "john_doe",
+      "password": "securepassword123"
+    },
+    {
+      "username": "jane_smith",
+      "password": "strongpass456"
+    },
+    {
+      "username": "alex_jones",
+      "password": "secret321pass"
+    },
+    {
+      "username": "susan_wilson",
+      "password": "password789"
+    },
+    {
+      "username": "chris_parker",
+      "password": "mypassword123"
+    },
+
+    {
+        "username": "abdulsamedtma",
+        "password": "tech_blog"
+    }
+  ]
+  
