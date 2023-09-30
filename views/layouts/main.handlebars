@@ -1,42 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="Abdul" content="Ghibli">
-  <title>Home | Tech Blog</title>
-  <link href="/images/favicon.ico" rel="shortcut icon">
-  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The tech blog</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<body class="flex-column min-100-vh">
-  <nav class="navbar">
-    <ul>
-      <li class="li-inline nav-item"><a href="/">Home</a></li>
-      <li class="li-inline nav-item"><a href="/dashboard">Dashboard</a></li>
-      <!-- Conditionally render login link with UNLESS-->
-      {{#unless loggedIn}}
-      <li class="li-inline nav-item"><a href="/login">Login</a></li>
-      {{/unless}}
-      <li class="li-inline nav-item"><a href="#" id="logout-link">Logout</a></li>
-    </ul>
-  </nav>
+<body>
+    <div class="main-wrap">
+        <header class="display-flex flex-row align-center header">
+            <nav class="navigation">
+                <a href="/">Home</a>
+                <a href="/dashboard">Dashboard</a>
+                {{#if loggedIn}}
+                <a href="/" id="logout">logout</a>
+                {{else}}
+                <a href="/login">login</a>
+                {{/if}}
+            </nav>
 
-  <header class="hero">
-    <h1 class="app-title"><a href="/">The Tech Blog</a></h1>
-  </header>
+            <h1 class="app-title">The Tech Blog</h1>
+        </header>
+        <main class="container container-fluid mt-5">
+            <!-- Render the sub layout -->
+            {{{ body }}}
+        </main>
+        <footer class="flex-row justify-center">
+&copy; The Tech Blog App was created with ❤️ by  <a href="https://github.com/abdulsamedtma"> Abdul </a>. ✨  Every day is a learning day!  ✨
+        </footer>
+    </div>
 
-  <main class="col-auto">
-    {{{body}}}
-  </main>
-
-  <footer class="flex-row justify-center">
-    &copy; The Tech Blog App was created with ❤️ by Abdul. ✨  Every day is a learning day!  ✨
-  </footer>
+    <!-- Render script for logged in users only -->
+    {{#if loggedIn}}
+    <script src="/js/logout.js"></script>
+    {{/if}}
 </body>
 
 </html>
-{{#if loggedIn}}
-<script src="/js/logout.js"></script>
-{{/if}}
+
+
+
+
+
+
+
+
+
+
+

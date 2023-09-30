@@ -11,17 +11,11 @@ class Comment extends Model {}
       primaryKey: true,
       autoIncrement: true,
     },
-    commentContent: {
+    comment_text: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
-    dateCreated: {
-      type: DataTypes.DATEONLY,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-    userId: {
+       userId: {
       type: DataTypes.INTEGER,
       references: {
         model: 'user',
@@ -38,7 +32,6 @@ class Comment extends Model {}
   },
   {
     sequelize,
-    timestamps: false,
     freezeTableName: true,
     underscored: true,
     modelName: 'comment',

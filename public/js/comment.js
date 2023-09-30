@@ -1,44 +1,36 @@
-// Get the value of an input field with the name "post-id"
-const postId = document.querySelector('input[name="post-id"]').value;
-
-// Log "testing" to the console (for debugging purposes)
-console.log("testing");
-console.log(postId);
-
-// Define an event handler for the comment form submission
-const commentFormHandler = async (event) => {
+// Function to handle comment submission
+async function commentFormHandler(event) {
   event.preventDefault(); // Prevent the default form submission behavior
 
-  // Get the value of a textarea field with the name "comment-body"
-  const commentContent = document.querySelector('textarea[name="comment-body"]').value;
-  console.log(commentContent);
+  // Get the value of the comment text input field and trim any leading/trailing whitespace
+  const comment_text = document.querySelector('input[name="comment-body"]').value.trim();
 
-  // Check if commentContent is not empty
-  if (commentContent) {
-    // Send a POST request to the "/api/comment" endpoint
-    const response = await fetch('/api/comment', {
-      method: 'POST',
-      body: JSON.stringify({
-        postId,
-        commentContent
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+  // Extract the post_id from the current URL by splitting it and taking the last part
+  const post_id = window.location.toString().split("/")[
+      window.location.toString().split("/").length - 1
+  ];
 
-    // Check if the server response is successful (HTTP status code 200)
-    if (response.ok) {
-      // Reload the page to display the new comment
-      document.location.reload();
-    } else {
-      // Display an alert with the response status text in case of an error
-      alert(response.statusText);
-    }
+  // Check if the comment text is not empty
+  if (comment_text) {
+      // Send a POST request to create a new comment
+      await fetch("/api/comments", {
+          method: "POST",
+          body: JSON.stringify({
+              post_id,
+              comment_text,
+          }),
+          headers: {
+              "Content-Type": "application/json",
+          },
+      })
+      .then(() => {
+          // Display a success message and reload the page after successful comment submission
+          alert("Comment posted successfully!");
+          document.location.reload();
+      })
+      .catch(() => alert("An error occurred while posting your comment. Please try again."));
   }
-};
+}
 
-// Add a submit event listener to the comment form
-document
-  .querySelector('#new-comment-form')
-  .addEventListener('submit', commentFormHandler);
+// Add an event listener to the comment form for form submission
+document.querySelector(".comment-form").addEventListener("submit", commentFormHandler);

@@ -1,4 +1,31 @@
-<!DOCTYPE html>
+{{#if posts.length}}
+    <h2>Your Posts</h2>
+    {{#each posts as |post|}}
+    {{> dashboard-post}}
+    {{/each}}
+{{/if}}
+
+<div class="button-wrap">
+    <a class="link" href="/dashboard/new">➕ New Post</a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -33,4 +60,4 @@
 </body>
 
 </html>
-<script src="/js/logout.js"></script>
+<script src="/js/logout.js"></script> --}}

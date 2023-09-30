@@ -1,27 +1,22 @@
 [
     {
-      "postTitle": "Ethereum Price Surge",
-      "postContent": "In this post, we explore the sudden surge in the value of Ethereum, a popular cryptocurrency...",
+      "title": "Structured Query Language (SQL): A Powerful Tool for Data Management",
+      "content": "Structured Query Language, commonly known as SQL, is the backbone of modern data management. It's a specialized programming language used for communicating with and manipulating relational databases. Whether you're a data analyst, a software developer, or a business professional, SQL is a vital skill that can empower you to harness the full potential of your data.",
       "user_Id": 1
     },
     {
-      "postTitle": "npm 7 Release Highlights",
-      "postContent": "This post delves into the release highlights of npm 7, the latest version of the Node Package Manager...",
+      "title": "npm 7 Release Highlights",
+      "content": "This post delves into the release highlights of npm 7, the latest version of the Node Package Manager...",
       "user_Id": 2
     },
     {
-      "postTitle": "Enhanced Safety Features for Chrome Extensions",
-      "postContent": "Google is rolling out enhanced safety features for Chrome extensions to improve user security...",
-      "user_Id": 2
+      "title": "Enhanced Safety Features for Chrome Extensions",
+      "content": "Google is rolling out enhanced safety features for Chrome extensions to improve user security...",
+      "user_Id": 3
     },
     {
-      "postTitle": "The Role of Autonomous Robots in Warfare",
-      "postContent": "This thought-provoking post explores the evolving role of autonomous robots in modern warfare...",
-      "user_Id": 5
-    },
-    {
-      "postTitle": "Google's Privacy Initiative for Android Apps",
-      "postContent": "Google is implementing changes to enhance user privacy for those who opt out of personalized ads within Android apps...",
+      "title": "The Role of Autonomous Robots in Warfare",
+      "content": "This thought-provoking post explores the evolving role of autonomous robots in modern warfare...",
       "user_Id": 4
-    }
+    }    
   ]

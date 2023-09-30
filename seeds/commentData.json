@@ -1,0 +1,22 @@
+[
+    {
+        "comment_text": " SQL (Structured Query Language) can be a valuable skill for managing and working with relational databases.",
+        "user_id": 1,
+        "post_id": 1
+    },
+    {
+        "comment_text": "Very insigtful and useful for a full-stack developer",
+        "user_id": 2,
+        "post_id": 2
+    },
+    {
+        "comment_text": "Indeed everyday is a learning day!",
+        "user_id": 3,
+        "post_id": 3
+    },
+    {
+        "comment_text": "The evolution of AI is good servant but can be a bad master",
+        "user_id": 4,
+        "post_id": 4
+    }
+]

@@ -4,6 +4,10 @@
       "password": "securepassword123"
     },
     {
+      "username": "abdul_samed",
+      "password": "tech_blog"
+  },
+    {
       "username": "jane_smith",
       "password": "strongpass456"
     },
@@ -18,11 +22,6 @@
     {
       "username": "chris_parker",
       "password": "mypassword123"
-    },
-
-    {
-        "username": "abdulsamedtma",
-        "password": "tech_blog"
     }
   ]
   

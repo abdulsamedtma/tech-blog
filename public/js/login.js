@@ -1,32 +1,34 @@
-// Define an event handler for the login form submission
-const loginFormHandler = async (event) => {
+// Function to handle login form submission
+async function loginFormHandler(event) {
     event.preventDefault(); // Prevent the default form submission behavior
 
-    // Get the username and password input elements
-    const usernameEl = document.querySelector('#username-input-login').value.trim();
-    const passwordEl = document.querySelector('#password-input-login').value.trim();
-    
-    if (usernameEl && passwordEl) {
+    // Get the values of the username and password input fields and trim any leading/trailing whitespace
+    const username = document.querySelector("#username-login").value.trim();
+    const password = document.querySelector("#password-login").value.trim();
 
-    // Send a POST request to the "/api/user/login" endpoint with the provided username and password
-    const response = await fetch('/api/user/login', {
-        method: 'POST',
-        body: JSON.stringify({ usernameEl, passwordEl }),   
-        headers: { 'Content-Type': 'application/json' },
-    });
+    // Check if both username and password are provided
+    if (username && password) {
+        // Send a POST request to the server to perform user login
+        await fetch("/api/users/login", {
+            method: "post",
+            body: JSON.stringify({
+                username,
+                password,
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+        .then(() => { 
+            // Redirect to the user's dashboard upon successful login
+            document.location.replace("/dashboard"); 
+        })
+        .catch(err => console.log(err)); // Log any errors that occur during the request
     }
-    // Check if the server response is successful (HTTP status code 200)
-    if (response.ok) {
-        // Redirect to the dashboard page upon successful login
-        document.location.replace('/dashboard');
-    } else {
-        // Display an alert if login fails
-        alert('Failed to login');
-    }
-};
+}
 
-// Add a submit event listener to the login form
-document.querySelector('.login-form')
-.addEventListener('submit', loginFormHandler);
+// Add an event listener to the login form for form submission
+document.querySelector(".login-form").addEventListener("submit", loginFormHandler);
+
 
 

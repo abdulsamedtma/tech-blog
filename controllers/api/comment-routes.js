@@ -1,35 +1,52 @@
+// Import necessary modules and dependencies
 const router = require('express').Router();
-const { Comment } = require('../../models/');
+const { Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-router.get('/', withAuth, async (req, res) => {
- try{ 
-  const commentData = await Comment.findAll({
-    include: [User],
-  });
-// serialize the data
-  const comments = commentData.map((comment) => comment.get({ plain: true }));
-
-  console.log(comments);
-  
-  res.render('single-post', {comments, loggedIn: req.session.loggedIn});
-} catch(err) {
-    res.status(500).json(err);
-}
+// Route to get all comments
+router.get('/', (req, res) => {
+    // Find all comments in the database
+    Comment.findAll({})
+        .then(dbCommentData => res.json(dbCommentData))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
-router.post('/', withAuth, async (req, res) => {
-  const body = req.body;
-
-  try {
-    const newComment = await Comment.create({
-      ...body,
-      userId: req.session.userId,
+// Route to get a comment by its ID
+router.get('/:id', (req, res) => {
+    // Find a specific comment by its ID
+    Comment.findAll({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(dbCommentData => res.json(dbCommentData))
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
     });
-    res.json(newComment);
-  } catch (err) {
-    res.status(500).json(err);
-  }
 });
 
+// Route to create a new comment, requires authentication
+router.post('/', withAuth, (req, res) => {
+    // Check if there's an active user session
+    if (req.session) {
+        // Create a new comment using data from the request body
+        Comment.create({
+           
+            comment_text: req.body.comment_text,
+            post_id: req.body.post_id,
+            user_id: req.session.user_id,
+        })
+        .then(dbCommentData => res.json(dbCommentData))
+        .catch(err => {
+            console.log(err);
+            res.status(400).json(err);
+        });
+    }
+});
+
+// Export the router module
 module.exports = router;
