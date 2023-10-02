@@ -1,5 +1,5 @@
 <article class="post">
-    {{#each posts as |post| }}
-    {{> post-lists}}
-    {{/each}}
+    {{#each posts as |post| }} <!-- Iterate through the "posts" array and access each post as "post". -->
+        {{> post-lists}} <!-- Include the "post-lists" template for each post. -->
+    {{/each}} <!-- End of the "each" loop. -->
 </article>

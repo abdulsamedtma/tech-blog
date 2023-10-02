@@ -1,22 +1,21 @@
-{{> post-lists post}}
-{{> comments post.comments}}
+{{> post-lists post}} <!-- Include the "post-lists" template and pass the "post" data to it. -->
+{{> comments post.comments}} <!-- Include the "comments" template and pass the comments associated with the "post" to it. -->
 
-{{#if loggedIn}}
+{{#if loggedIn}} <!-- Check if the user is logged in. -->
 <div class="card">
     <form class="card-body comment-form" id="comment-form">
         <div class="form-group">
-            <label class="form-label">Comment</label>
-            <input id="comment" name="comment-body" class="form-input" />
+            <label class="form-label">Comment</label> <!-- Label for the comment input field. -->
+            <input id="comment" name="comment-body" class="form-input" /> <!-- Comment input field. -->
         </div>
 
         <div class="button-wrap">
-            <button type="submit" class="btn">Submit</button>
+            <button type="submit" class="btn">Submit</button> <!-- Submit button for adding a comment. -->
         </div>
     </form>
 </div>
-{{/if}}
+{{/if}} <!-- End of the "if" condition. -->
 
-
-{{#if loggedIn}}
-<script src="/js/comment.js"></script>
-{{/if}}
+{{#if loggedIn}} <!-- Check if the user is logged in. -->
+<script src="/js/comment.js"></script> <!-- Include the JavaScript file for handling comments if the user is logged in. -->
+{{/if}} <!-- End of the second "if" condition. -->
