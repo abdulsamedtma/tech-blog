@@ -103,11 +103,11 @@ We welcome contributions from the community to enhance and expand the Tech Blog 
 
 ## Questions
 
-Have additional questions? Click the links below to reach us through our GitHub account or Email address.
+Have additional questions? Click the links below to reach me through my GitHub account or Email address.
 
 - [Link to Github URL](https://github.com/abdulsamedtma/tech-blog)
 - [Connect with Abdul via Email](mailto:abdulsamedtma@gmail.com)
-- [Click to view deployed site on Heroku](https://tech-blogpost-3a2bb1ffc243.herokuapp.com)
+- [Click to view the deployed site on Heroku](https://tech-blogpost-3a2bb1ffc243.herokuapp.com)
 
 
 "Embrace the digital frontier, where every line of code is an opportunity and every bug is a challenge waiting to be conquered. Welcome to the world of tech, where innovation knows no bounds. Let's write the future, one keystroke at a time! 🚀👩‍💻👨‍💻"
